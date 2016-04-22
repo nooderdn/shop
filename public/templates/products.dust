@@ -1,0 +1,105 @@
+{>"layouts/master" /}
+{<title}
+    {@pre type="content" key="title"/}
+{/title}
+
+{<body}
+	<!--Add product-->
+  <div class="container">
+    <div class = "row">
+      <div class="col-md-9">
+        <div class="title-bg">
+          <div class="title">PRODUCT</div>
+        </div>
+        <form class="form-horizontal" role="form" method="post" action="/products">
+          <div class="form-group">
+              <div class="col-sm-12">
+                <input type="text" class="form-control" id="name" placeholder="Product Name" name="name">
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                <input type="date" class="form-control" id="date" placeholder="Created" name="created">
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                <input type="number" class="form-control" id="price" placeholder="Price" name="price">
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                <input type="number" class="form-control" id="discount" placeholder="Discount" name="discount">
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                <input type="text" class="form-control" id="Description" placeholder="Description" name="description">
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-12">
+                <input type="text" class="form-control" id="image_link" placeholder="Image Link" name="image_link">
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="col-sm-12">
+                <input type="hidden" name="_csrf" value="{_csrf}">
+                <button class="btn btn-default btn-red btn-md" id="submit" type="submit">Submit</button>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- List products -->
+  <div class="container">
+    <div class="row">
+      <div class="title-bg">
+        <div class="title">LIST PRODUCTS</div>
+      </div>
+      <div class="col-md-9">
+          {?products}
+            {#products}
+            <ul class="gridlist">
+              <li class="gridlist-inner">
+                <form role="form" method="post" action="/products">
+                  <input type="hidden" name="_csrf" value="{_csrf}">
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <input type="hidden" name="item_id" value="{.id}">
+                  <div class="white">
+                    <div class="row clearfix">
+                      <div class="col-md-4">
+          								<div class="pr-img">
+          									<a href="product.html"><img src = {.image_link} alt="" class="img-responsive"/></a>
+          								</div>
+          						</div>
+  							<div class="col-md-6">
+  								<div class="gridlisttitle">{.name}</span></div>
+  								<p class="gridlist-desc">
+  									{.description}
+  								</p>
+  							</div>
+  							<div class="col-md-2">
+  								<div class="gridlist-pricetag on-sale"><div class="inner"><span ><span class="oldprice">${.price}</span>${.discount}</span></div></div>
+  							</div>
+  						</div>
+  						</div>
+
+  						<div class="gridlist-act">
+  							<button type="submit" id="submit" class="btn btn-danger" value="Delete"></button>
+  							<div class="clearfix"></div>
+  						</div>
+
+            </form>
+              </li>
+            </ul>
+            {/products}
+          {/products}
+      </div>
+    </div>
+  </div>
+
+{/body}
